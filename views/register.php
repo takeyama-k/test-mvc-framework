@@ -1,14 +1,10 @@
-<?php
-
-
-?>
 <h1>Create An Account</h1>
 <form action="" method="post">
   <div class="row">
     <div class="col">
       <div class="form-group">
         <label>FirstName</label>
-        <input type="text" name="firstname" class="form-control">
+        <input type="text" name="firstname" value="<?php echo $model->firstname ?? '' ?>" class="form-control<?php echo $model->hasError("firstname") ? 'is-invalid' : '' ?>">
       </div>
     </div>
     <div class="col">
