@@ -24,7 +24,7 @@ class AuthController extends Controller
             ]);
         }
         return $this->render('register',[
-            'model' => $registerModel]
-        );
+            'model' => $registerModel
+        ]);
     }
 }

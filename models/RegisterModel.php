@@ -5,11 +5,11 @@ use app\core\Model;
 
 class RegisterModel extends Model
 {
-    public string $firstname;
-    public string $lastname;
-    public string $email;
-    public string $password;
-    public string $confirmpassword;
+    public string $firstname = '';
+    public string $lastname = '';
+    public string $email = '';
+    public string $password = '';
+    public string $confirmpassword = '';
 
     public function rules() : array
     {
