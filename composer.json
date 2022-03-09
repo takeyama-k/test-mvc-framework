@@ -15,5 +15,7 @@
             "app\\": "./"
         }
     },
-    "require": {}
+    "require": {
+        "vlucas/phpdotenv": "^5.4"
+    }
 }
