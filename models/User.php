@@ -42,6 +42,12 @@ class User extends DbModel
         return ['firstname', 'lastname' , 'email' , 'password', 'user_status'];
     }
 
+    public function labels() : array
+    {
+        return [
+            'firstname' => '姓', 'lastname' => '名', 'email' => 'メールアドレス', 'password' => 'パスワード', 'confirmpassword' => 'パスワード確認'];
+    }
+
     public function register()
     {
         $this->password = password_hash($this->password, PASSWORD_DEFAULT);

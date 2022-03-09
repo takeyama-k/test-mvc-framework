@@ -7,4 +7,8 @@ class Responce{
     {
         http_response_code($code);
     }
+    public function redirect($url_path)
+    {
+        header('Location:'.$url_path);
+    }
 }
