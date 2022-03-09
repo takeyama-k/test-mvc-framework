@@ -9,6 +9,7 @@ abstract class Model
     public const RULE_MIN = 'min';
     public const RULE_MAX = 'max';
     public const RULE_MATCH = 'match';
+    public const RULE_UNIQUE = 'unique';
     
     public array $errors = [];
 
@@ -52,7 +53,26 @@ abstract class Model
                 if($ruleName === self::RULE_MATCH && $value !== $this->{$rule['match']}){
                     $this->addError($attribute, self::RULE_MATCH,$rule);
                 }
+                if($ruleName === self::RULE_UNIQUE)
+                {
+                    $className = $rule['class'];
+                    $uniqueAttr = $rule['attribute'] ?? $attribute;
+                    $tableName = $className::tableName();
+                    $statement = Application::$app->db->prepare("SELECT * FROM $tableName WHERE $uniqueAttr = :attr");
+                    $statement->bindValue(":attr",$this->{$uniqueAttr});
+                    $statement->execute();
+                    $record = $statement->fetchObject();
+                    if($record)
+                    {
+                        $this->addError($attribute, self::RULE_UNIQUE,['value' => $this->{$uniqueAttr}]);
+                    }
+                }
             }
+        }
+        if(empty($this->errors)){
+            return true;
+        }else{
+            return false;
         }
     }
 
@@ -72,7 +92,8 @@ abstract class Model
             self::RULE_EMAIL => '正しいe-mailを入力してください',
             self::RULE_MIN => '最低{min}文字入力してください',
             self::RULE_MAX => '{max}文字以下で入力してください',
-            self::RULE_MATCH => '{match}と一致しません',    
+            self::RULE_MATCH => '{match}と一致しません',  
+            self::RULE_UNIQUE => '{value}はすでに登録されています',    
         ];
     }
 
