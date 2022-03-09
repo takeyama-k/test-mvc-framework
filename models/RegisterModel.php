@@ -22,4 +22,8 @@ class RegisterModel extends Model
         ];
     }
 
+    public function register()
+    {
+        echo "Creating new user";
+    }
 }

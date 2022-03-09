@@ -37,7 +37,7 @@ class Database
         if(!empty($newMigrations)){
             $this->saveMigrations($newMigrations);
         }else{
-            echo "All Migrations are applied";
+            $this->log("All Migrations are applied");
         }
 
     }
@@ -61,5 +61,9 @@ class Database
         $str = implode(',' ,array_map(fn($migration) => "('$migration')",$migrations));
         $statement = $this->pdo->prepare("INSERT INTO migrations (migration) VALUES ". $str);
         $statement->execute();
+    }
+
+    protected function log($message){
+        echo '[' . date('Y-m-d H:i:s'). '] - '. $message . PHP_EOL;
     }
 }
