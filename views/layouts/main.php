@@ -4,7 +4,6 @@
   
   <!doctype html>
   <html lang="en">
-
   <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -15,7 +14,6 @@
 
     <title>{{title}}}</title>
   </head>
-
   <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
       <a class="navbar-brand" href="#">Navbar</a>
@@ -32,6 +30,7 @@
           </li>
           </li>
         </ul>
+        <?php if(Application::isGuest()): ?>
         <ul class="navbar-nav ml-auto">
           <li class="nav-item active">
             <a class="nav-link" href="/login">login <span class="sr-only">(current)</span></a>
@@ -40,10 +39,13 @@
             <a class="nav-link" href="/register">register <span class="sr-only">(current)</span></a>
           </li>
         </ul>
-        <form class="form-inline my-2 my-lg-0">
-          <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-        </form>
+        <?php else: ?>
+        <ul class="navbar-nav ml-auto">  
+          <li class="nav-item active">
+            <a class="nav-link" href="/logout">ようこそ　<?php echo Application::$app->user->getDisplayName();?> 様 (Logout)</a>
+          </li>
+        </ul>
+        <?php endif; ?>
       </div>
     </nav>
     <div class="container">

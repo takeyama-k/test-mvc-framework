@@ -1,9 +1,9 @@
 <?php
 
 namespace app\models;
-use app\models\DbModel;
+use app\core\UserModel;
 
-class User extends DbModel
+class User extends UserModel
 {
     const STATUS_INACTIVE = 0;
     const STATUS_ACTIVE = 1;
@@ -32,7 +32,7 @@ class User extends DbModel
         ];
     }
 
-    public function tableName() : string
+    public static function tableName() : string
     {
         return  'users';
     }
@@ -45,12 +45,22 @@ class User extends DbModel
     public function labels() : array
     {
         return [
-            'firstname' => '姓', 'lastname' => '名', 'email' => 'メールアドレス', 'password' => 'パスワード', 'confirmpassword' => 'パスワード確認'];
+            'firstname' => '姓', 'lastname' => '名', 'email' => 'メールアドレス', 'password' => 'パスワード', 'confirmpassword' => ''];
     }
 
     public function register()
     {
         $this->password = password_hash($this->password, PASSWORD_DEFAULT);
         return $this->save();
+    }
+
+    public static function primaryKey() : string
+    {
+        return 'id';
+    }
+
+    public function getDisplayName()
+    {
+        return $this->firstname . ' ' . $this->lastname;
     }
 }

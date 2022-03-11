@@ -40,7 +40,7 @@ class Router
             $callback[0] = Application::$app->controller;
         }
 
-        echo call_user_func($callback, $this->request);
+        echo call_user_func($callback, $this->request, $this->responce);
     }
 
     public function renderContent($viewContent)
